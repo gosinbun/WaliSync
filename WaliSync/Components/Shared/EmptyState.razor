@@ -1,0 +1,15 @@
+<div class="d-flex flex-column align-items-center justify-content-center py-5 text-center px-3">
+    <div class="mb-3 d-flex align-items-center justify-content-center"
+         style="width: 64px; height: 64px; border-radius: 50%; background-color: rgba(26, 27, 35, 0.05); color: var(--text-muted); font-size: 1.75rem;">
+        <i class="@IconClass"></i>
+    </div>
+    <h6 class="fw-bold text-primary-ink mb-1">@Title</h6>
+    <p class="text-muted-custom small mb-0" style="max-width: 320px;">@Message</p>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Data Belum Tersedia";
+    [Parameter] public string Message { get; set; } = "Belum ada rekaman data yang dapat ditampilkan.";
+    [Parameter] public string IconClass { get; set; } = "fa-solid fa-folder-open";
+}
+

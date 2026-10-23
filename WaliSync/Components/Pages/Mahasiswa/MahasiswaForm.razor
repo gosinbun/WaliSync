@@ -1,0 +1,244 @@
+@page "/mahasiswa/tambah"
+@page "/mahasiswa/edit/{Id:int}"
+@inject IMahasiswaService MahasiswaService
+@inject IDosenService DosenService
+@inject NavigationManager NavigationManager
+@inject ToastService ToastService
+
+<div class="max-w-2xl mx-auto" style="max-width: 680px;">
+    <!-- Header with Back Button -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <button type="button" class="btn btn-circle-action shadow-soft" @onclick="NavigateBack" title="Kembali">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div>
+            <h2 class="fw-bold mb-1 text-primary-ink">@(IsEditMode ? "Edit Data Mahasiswa" : "Tambah Mahasiswa")</h2>
+            <p class="text-muted-custom small mb-0">Plotting mahasiswa dengan dosen wali aktif.</p>
+        </div>
+    </div>
+
+    @if (_isLoading)
+    {
+        <LoadingSpinner Message="Memuat data formulir..." />
+    }
+    else
+    {
+        <div class="row-card p-4 p-md-5">
+            @if (_dosenList == null || !_dosenList.Any())
+            {
+                <div class="alert alert-warning rounded-3 mb-4 d-flex align-items-center gap-3" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation fs-4 text-warning"></i>
+                    <div class="small">
+                        <strong>Perhatian:</strong> Data Dosen masih kosong di sistem. Silakan tambah data Dosen terlebih dahulu sebelum dapat mendaftarkan Mahasiswa.
+                    </div>
+                </div>
+            }
+
+            <EditForm Model="_model" OnValidSubmit="HandleValidSubmitAsync">
+                <DataAnnotationsValidator />
+
+                <div class="d-flex flex-column gap-3 mb-4">
+                    <!-- NIM & Angkatan in 2 columns -->
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold small text-primary-ink mb-1">
+                                NIM <span class="text-danger">*</span>
+                            </label>
+                            <InputText @bind-Value="_model.Nim"
+                                       class="form-control-custom w-100"
+                                       maxlength="20"
+                                       placeholder="Contoh: 72240675" />
+                            <ValidationMessage For="@(() => _model.Nim)" class="text-danger small mt-1" />
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold small text-primary-ink mb-1">
+                                Angkatan <span class="text-danger">*</span>
+                            </label>
+                            <InputSelect @bind-Value="_model.Angkatan" class="form-select-custom w-100">
+                                @for (int y = 2020; y <= 2026; y++)
+                                {
+                                    <option value="@y">Tahun @y</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => _model.Angkatan)" class="text-danger small mt-1" />
+                        </div>
+                    </div>
+
+                    <!-- Nama Lengkap -->
+                    <div>
+                        <label class="form-label fw-semibold small text-primary-ink mb-1">
+                            Nama Lengkap Mahasiswa <span class="text-danger">*</span>
+                        </label>
+                        <InputText @bind-Value="_model.NamaMahasiswa"
+                                   class="form-control-custom w-100"
+                                   maxlength="100"
+                                   placeholder="Contoh: Jimmy Nugraha Putra" />
+                        <ValidationMessage For="@(() => _model.NamaMahasiswa)" class="text-danger small mt-1" />
+                    </div>
+
+                    <!-- Email Mahasiswa -->
+                    <div>
+                        <label class="form-label fw-semibold small text-primary-ink mb-1">
+                            Email Mahasiswa <span class="text-danger">*</span>
+                        </label>
+                        <InputText @bind-Value="_model.Email"
+                                   type="email"
+                                   class="form-control-custom w-100"
+                                   maxlength="100"
+                                   placeholder="student@kampus.ac.id" />
+                        <ValidationMessage For="@(() => _model.Email)" class="text-danger small mt-1" />
+                    </div>
+
+                    <hr class="my-1 border-light" />
+
+                    <!-- Dosen Wali Selection -->
+                    <div>
+                        <label class="form-label fw-semibold small text-primary-ink mb-1">
+                            Dosen Wali <span class="text-danger">*</span>
+                        </label>
+                        <InputSelect @bind-Value="_model.DosenId"
+                                     class="form-select-custom w-100"
+                                     disabled="@(_dosenList == null || !_dosenList.Any())">
+                            <option value="0">-- Pilih Dosen Wali --</option>
+                            @if (_dosenList != null)
+                            {
+                                @foreach (var dosen in _dosenList)
+                                {
+                                    <option value="@dosen.DosenId">@dosen.NamaDosen (NIDN: @dosen.Nidn) - @dosen.Prodi</option>
+                                }
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => _model.DosenId)" class="text-danger small mt-1" />
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex align-items-center justify-content-end gap-2 pt-2 border-top">
+                    <button type="button" class="btn btn-light rounded-pill px-4 fw-medium" @onclick="NavigateBack" disabled="@_isSubmitting">
+                        Batal
+                    </button>
+                    <button type="submit"
+                            class="btn btn-accent px-4 d-flex align-items-center gap-2"
+                            disabled="@(_isSubmitting || _dosenList == null || !_dosenList.Any())">
+                        @if (_isSubmitting)
+                        {
+                            <span class="spinner-border spinner-border-sm" role="status"></span>
+                            <span>Menyimpan...</span>
+                        }
+                        else
+                        {
+                            <i class="fa-regular fa-floppy-disk"></i>
+                            <span>Simpan Perubahan</span>
+                        }
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private bool IsEditMode => Id.HasValue && Id.Value > 0;
+    private bool _isLoading = false;
+    private bool _isSubmitting = false;
+    private MahasiswaCreateUpdateDto _model = new();
+    private List<DosenLookupDto>? _dosenList;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadFormDependenciesAsync();
+    }
+
+    private async Task LoadFormDependenciesAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _dosenList = await DosenService.GetDosenLookupAsync();
+
+            if (IsEditMode)
+            {
+                var data = await MahasiswaService.GetMahasiswaByIdAsync(Id!.Value);
+                if (data == null)
+                {
+                    ToastService.ShowError("Data Mahasiswa tidak ditemukan.");
+                    NavigationManager.NavigateTo("mahasiswa");
+                    return;
+                }
+
+                _model = new MahasiswaCreateUpdateDto
+                {
+                    Nim = data.Nim,
+                    NamaMahasiswa = data.NamaMahasiswa,
+                    Email = data.Email,
+                    Angkatan = data.Angkatan,
+                    DosenId = data.DosenId
+                };
+            }
+            else
+            {
+                _model = new MahasiswaCreateUpdateDto
+                {
+                    Angkatan = 2024,
+                    DosenId = _dosenList?.FirstOrDefault()?.DosenId ?? 0
+                };
+            }
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Gagal memuat form: {ex.Message}");
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task HandleValidSubmitAsync()
+    {
+        if (_model.DosenId <= 0)
+        {
+            ToastService.ShowError("Silakan pilih Dosen Wali yang valid.");
+            return;
+        }
+
+        try
+        {
+            _isSubmitting = true;
+
+            if (IsEditMode)
+            {
+                await MahasiswaService.UpdateMahasiswaAsync(Id!.Value, _model);
+                ToastService.ShowSuccess("Data Mahasiswa berhasil diperbarui!");
+            }
+            else
+            {
+                await MahasiswaService.CreateMahasiswaAsync(_model);
+                ToastService.ShowSuccess("Data Mahasiswa baru berhasil ditambahkan!");
+            }
+
+            NavigationManager.NavigateTo("mahasiswa");
+        }
+        catch (ApiException ex)
+        {
+            ToastService.ShowError(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Terjadi kesalahan: {ex.Message}");
+        }
+        finally
+        {
+            _isSubmitting = false;
+        }
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("mahasiswa");
+    }
+}
+

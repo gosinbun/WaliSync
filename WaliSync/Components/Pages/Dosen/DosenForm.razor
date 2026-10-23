@@ -1,0 +1,204 @@
+@page "/dosen/tambah"
+@page "/dosen/edit/{Id:int}"
+@inject IDosenService DosenService
+@inject NavigationManager NavigationManager
+@inject ToastService ToastService
+
+<div class="max-w-2xl mx-auto" style="max-width: 680px;">
+    <!-- Header with Back Button -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <button type="button" class="btn btn-circle-action shadow-soft" @onclick="NavigateBack" title="Kembali">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div>
+            <h2 class="fw-bold mb-1 text-primary-ink">@(IsEditMode ? "Edit Data Dosen" : "Tambah Dosen")</h2>
+            <p class="text-muted-custom small mb-0">Lengkapi formulir identitas dan program studi dosen.</p>
+        </div>
+    </div>
+
+    @if (_isLoading)
+    {
+        <LoadingSpinner Message="Memuat data formulir..." />
+    }
+    else
+    {
+        <div class="row-card p-4 p-md-5">
+            <EditForm Model="_model" OnValidSubmit="HandleValidSubmitAsync">
+                <DataAnnotationsValidator />
+
+                <div class="d-flex flex-column gap-3 mb-4">
+                    <!-- NIDN -->
+                    <div>
+                        <label class="form-label fw-semibold small text-primary-ink mb-1">
+                            NIDN <span class="text-danger">*</span>
+                        </label>
+                        <InputText @bind-Value="_model.Nidn"
+                                   class="form-control-custom w-100"
+                                   maxlength="20"
+                                   placeholder="Contoh: 0512345678" />
+                        <ValidationMessage For="@(() => _model.Nidn)" class="text-danger small mt-1" />
+                    </div>
+
+                    <!-- Nama Dosen -->
+                    <div>
+                        <label class="form-label fw-semibold small text-primary-ink mb-1">
+                            Nama Lengkap & Gelar <span class="text-danger">*</span>
+                        </label>
+                        <InputText @bind-Value="_model.NamaDosen"
+                                   class="form-control-custom w-100"
+                                   maxlength="100"
+                                   placeholder="Contoh: Dr. Anita Wijaya" />
+                        <ValidationMessage For="@(() => _model.NamaDosen)" class="text-danger small mt-1" />
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="form-label fw-semibold small text-primary-ink mb-1">
+                            Email Institusi <span class="text-danger">*</span>
+                        </label>
+                        <InputText @bind-Value="_model.Email"
+                                   type="email"
+                                   class="form-control-custom w-100"
+                                   maxlength="100"
+                                   placeholder="anita@kampus.ac.id" />
+                        <ValidationMessage For="@(() => _model.Email)" class="text-danger small mt-1" />
+                    </div>
+
+                    <!-- Program Studi -->
+                    <div>
+                        <label class="form-label fw-semibold small text-primary-ink mb-1">
+                            Program Studi <span class="text-danger">*</span>
+                        </label>
+                        <InputSelect @bind-Value="_model.Prodi" class="form-select-custom w-100">
+                            <option value="">-- Pilih Program Studi --</option>
+                            @foreach (var prodi in _prodiOptions)
+                            {
+                                <option value="@prodi">@prodi</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => _model.Prodi)" class="text-danger small mt-1" />
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex align-items-center justify-content-end gap-2 pt-2 border-top">
+                    <button type="button" class="btn btn-light rounded-pill px-4 fw-medium" @onclick="NavigateBack" disabled="@_isSubmitting">
+                        Batal
+                    </button>
+                    <button type="submit" class="btn btn-accent px-4 d-flex align-items-center gap-2" disabled="@_isSubmitting">
+                        @if (_isSubmitting)
+                        {
+                            <span class="spinner-border spinner-border-sm" role="status"></span>
+                            <span>Menyimpan...</span>
+                        }
+                        else
+                        {
+                            <i class="fa-regular fa-floppy-disk"></i>
+                            <span>Simpan Data</span>
+                        }
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private bool IsEditMode => Id.HasValue && Id.Value > 0;
+    private bool _isLoading = false;
+    private bool _isSubmitting = false;
+    private DosenCreateUpdateDto _model = new();
+
+    private readonly string[] _prodiOptions = new[]
+    {
+        "Sistem Informasi",
+        "Informatika",
+        "Kedokteran",
+        "Arsitektur",
+        "Manajemen"
+    };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (IsEditMode)
+        {
+            await LoadExistingDataAsync();
+        }
+        else
+        {
+            _model = new DosenCreateUpdateDto();
+        }
+    }
+
+    private async Task LoadExistingDataAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            var data = await DosenService.GetDosenByIdAsync(Id!.Value);
+            if (data == null)
+            {
+                ToastService.ShowError("Data Dosen tidak ditemukan.");
+                NavigationManager.NavigateTo("dosen");
+                return;
+            }
+
+            _model = new DosenCreateUpdateDto
+            {
+                Nidn = data.Nidn,
+                NamaDosen = data.NamaDosen,
+                Email = data.Email,
+                Prodi = data.Prodi
+            };
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Gagal memuat data: {ex.Message}");
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task HandleValidSubmitAsync()
+    {
+        try
+        {
+            _isSubmitting = true;
+
+            if (IsEditMode)
+            {
+                await DosenService.UpdateDosenAsync(Id!.Value, _model);
+                ToastService.ShowSuccess("Data Dosen berhasil diperbarui!");
+            }
+            else
+            {
+                await DosenService.CreateDosenAsync(_model);
+                ToastService.ShowSuccess("Data Dosen baru berhasil ditambahkan!");
+            }
+
+            NavigationManager.NavigateTo("dosen");
+        }
+        catch (ApiException ex)
+        {
+            ToastService.ShowError(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Terjadi kesalahan: {ex.Message}");
+        }
+        finally
+        {
+            _isSubmitting = false;
+        }
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("dosen");
+    }
+}
+

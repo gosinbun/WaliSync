@@ -1,0 +1,40 @@
+@inject ToastService ToastService
+@implements IDisposable
+
+<div class="toast-floating-container">
+    @foreach (var toast in ToastService.Toasts)
+    {
+        <div class="toast-pill @(toast.Type == ToastType.Success ? "toast-success" : "toast-error")" key="@toast.Id">
+            <span class="toast-icon">
+                @if (toast.Type == ToastType.Success)
+                {
+                    <i class="fa-solid fa-circle-check"></i>
+                }
+                else
+                {
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                }
+            </span>
+            <div class="flex-grow-1">@toast.Message</div>
+            <button type="button" class="btn-close btn-close-white ms-2" style="font-size: 0.65rem;" @onclick="() => ToastService.RemoveToast(toast.Id)"></button>
+        </div>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ToastService.OnChange += OnToastChanged;
+    }
+
+    private void OnToastChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        ToastService.OnChange -= OnToastChanged;
+    }
+}
+

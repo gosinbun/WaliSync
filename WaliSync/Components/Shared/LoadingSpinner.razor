@@ -1,0 +1,11 @@
+<div class="d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="spinner-border text-secondary mb-3" role="status" style="width: 2.5rem; height: 2.5rem; color: var(--sidebar) !important;">
+        <span class="visually-hidden">Memuat data...</span>
+    </div>
+    <span class="text-muted-custom small fw-medium">@Message</span>
+</div>
+
+@code {
+    [Parameter] public string Message { get; set; } = "Memuat data dari server...";
+}
+

@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Front n Backend",
+    "Projects": [
+      {
+        "Path": "WaliSync.Api\\WaliSync.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "WaliSync\\WaliSync.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,0 +1,188 @@
+@page "/"
+@inject IDashboardService DashboardService
+@inject IJSRuntime JS
+
+<div class="mb-4">
+    <h2 class="fw-bold mb-1 text-primary-ink">Welcome back, Admin 👋</h2>
+    <p class="text-muted-custom small mb-0">Berikut adalah ringkasan data akademik dan perwalian mahasiswa hari ini.</p>
+</div>
+
+@if (_isLoading)
+{
+    <LoadingSpinner Message="Memuat ringkasan data akademik..." />
+}
+else if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="row-card text-center py-4">
+        <i class="fa-solid fa-triangle-exclamation text-danger-custom fs-2 mb-2"></i>
+        <h6 class="fw-bold text-primary-ink mb-1">Gagal Terhubung ke Server</h6>
+        <p class="text-muted-custom small mb-3">@_errorMessage</p>
+        <button class="btn btn-accent px-4 py-2" @onclick="LoadDashboardAsync">Coba Lagi</button>
+    </div>
+}
+else if (_stats != null)
+{
+    <!-- 3 Metrics Bento Cards -->
+    <div class="row g-3 mb-4">
+        <!-- Total Dosen -->
+        <div class="col-12 col-md-4">
+            <div class="row-card d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center"
+                     style="width: 52px; height: 52px; border-radius: 16px; background-color: var(--badge-danger-bg); color: var(--badge-danger-text); font-size: 1.4rem;">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <div>
+                    <span class="text-muted-custom small d-block">Total Dosen</span>
+                    <h3 class="fw-bold text-primary-ink mb-0">@_stats.TotalDosen</h3>
+                    <span class="text-muted-custom" style="font-size: 0.75rem;">5 Program Studi Terdaftar</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Mahasiswa -->
+        <div class="col-12 col-md-4">
+            <div class="row-card d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center"
+                     style="width: 52px; height: 52px; border-radius: 16px; background-color: var(--badge-info-bg); color: var(--badge-info-text); font-size: 1.4rem;">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <span class="text-muted-custom small d-block">Total Mahasiswa</span>
+                    <h3 class="fw-bold text-primary-ink mb-0">@_stats.TotalMahasiswa</h3>
+                    <span class="text-muted-custom" style="font-size: 0.75rem;">Angkatan 2020 - 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dosen Wali Aktif -->
+        <div class="col-12 col-md-4">
+            <div class="row-card d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center"
+                     style="width: 52px; height: 52px; border-radius: 16px; background-color: var(--badge-success-bg); color: var(--badge-success-text); font-size: 1.4rem;">
+                    <i class="fa-solid fa-clipboard-user"></i>
+                </div>
+                <div>
+                    <span class="text-muted-custom small d-block">Dosen Wali Aktif</span>
+                    <h3 class="fw-bold text-primary-ink mb-0">
+                        @_stats.DosenWaliAktif
+                        <span class="fw-normal text-muted-custom fs-6">/ @_stats.TotalDosen</span>
+                    </h3>
+                    <span class="text-muted-custom" style="font-size: 0.75rem;">Aktif membimbing mahasiswa</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart & Beban Perwalian -->
+    <div class="row g-4">
+        <!-- Angkatan Chart -->
+        <div class="col-12 col-lg-7">
+            <div class="row-card h-100 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0 text-primary-ink">Distribusi Mahasiswa</h5>
+                    <span class="badge rounded-pill bg-canvas text-muted-custom px-3 py-1 fw-medium" style="font-size: 0.75rem;">
+                        Per Angkatan (2020-2026)
+                    </span>
+                </div>
+                <div class="flex-grow-1 position-relative" style="min-height: 250px;">
+                    <canvas id="angkatanChartCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beban Perwalian List -->
+        <div class="col-12 col-lg-5">
+            <div class="row-card h-100 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0 text-primary-ink">Beban Perwalian</h5>
+                    <span class="text-muted-custom small">Status Real-time</span>
+                </div>
+
+                @if (_stats.BebanPerwalian == null || !_stats.BebanPerwalian.Any())
+                {
+                    <EmptyState Title="Belum Ada Dosen" Message="Tambahkan data dosen terlebih dahulu." />
+                }
+                else
+                {
+                    <div class="d-flex flex-column gap-2 overflow-auto" style="max-height: 290px;">
+                        @foreach (var item in _stats.BebanPerwalian)
+                        {
+                            <div class="d-flex align-items-center justify-content-between p-2 rounded-3 hover-canvas-bg">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="avatar-circle badge-info-custom">
+                                        @item.Inisial
+                                    </div>
+                                    <div>
+                                        <div class="fw-semibold small text-primary-ink">@item.NamaDosen</div>
+                                        <div class="text-muted-custom" style="font-size: 0.75rem;">@item.Prodi</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    @if (item.JumlahBimbingan > 0)
+                                    {
+                                        <span class="badge rounded-pill badge-success-custom px-2 py-1 small fw-semibold">
+                                            @item.JumlahBimbingan Mhs
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill bg-canvas text-muted-custom px-2 py-1 small fw-semibold">
+                                            0 Mhs
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool _isLoading = true;
+    private string? _errorMessage;
+    private DashboardStatsDto? _stats;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDashboardAsync();
+    }
+
+    private async Task LoadDashboardAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _errorMessage = null;
+            _stats = await DashboardService.GetDashboardStatsAsync();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_stats != null && _stats.DistribusiAngkatan.Any())
+        {
+            try
+            {
+                var labels = _stats.DistribusiAngkatan.Keys.Select(k => k.ToString()).ToArray();
+                var values = _stats.DistribusiAngkatan.Values.ToArray();
+                await JS.InvokeVoidAsync("renderAngkatanChart", "angkatanChartCanvas", labels, values);
+            }
+            catch
+            {
+                // In headless or during initial layout
+            }
+        }
+    }
+}
+

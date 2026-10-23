@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>WaliSync - Sistem Informasi Akademik</title>
+    <base href="/" />
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- WaliSync Custom Design Tokens -->
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="WaliSync.styles.css" />
+    <link rel="icon" href="data:," />
+</head>
+
+<body>
+    <div class="status-bar-safe-area"></div>
+
+    <div id="app">
+        <div class="d-flex justify-content-center align-items-center vh-100 bg-canvas">
+            <div class="text-center">
+                <div class="spinner-border text-sidebar mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+                <h5 class="fw-bold text-dark">Memuat WaliSync...</h5>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui" data-nosnippet>
+        Terjadi kendala pada sistem.
+        <a href="." class="reload">Muat Ulang</a>
+        <span class="dismiss">🗙</span>
+    </div>
+
+    <script src="_framework/blazor.webview.js" autostart="false"></script>
+    <script>
+        // Chart.js interop helper
+        window.renderAngkatanChart = (canvasId, labels, dataValues) => {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            
+            // Destroy existing chart if present
+            if (canvas._chartInstance) {
+                canvas._chartInstance.destroy();
+            }
+
+            const ctx = canvas.getContext('2d');
+            canvas._chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Mahasiswa',
+                        data: dataValues,
+                        backgroundColor: '#1A1B23',
+                        borderRadius: 6,
+                        hoverBackgroundColor: '#D2F366'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1A1B23',
+                            titleFont: { family: 'Inter', size: 13 },
+                            bodyFont: { family: 'Inter', size: 12 },
+                            cornerRadius: 8,
+                            padding: 10
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#e9ecef' }, 
+                            border: { display: false },
+                            ticks: { precision: 0 }
+                        },
+                        x: { 
+                            grid: { display: false }, 
+                            border: { display: false } 
+                        }
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
+</html>

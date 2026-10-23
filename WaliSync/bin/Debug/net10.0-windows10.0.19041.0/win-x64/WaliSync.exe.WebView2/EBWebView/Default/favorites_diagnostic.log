@@ -1,0 +1,129 @@
+2026-10-22 03:43:20.951: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 03:43:20.951: [INFO] Profiles total count: 1
+2026-10-22 03:43:20.951: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=null
+2026-10-22 03:43:20.951: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 03:43:20.951: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 03:43:20.951: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 03:43:20.951: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 03:43:20.951: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 03:45:21.562: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 03:57:27.584: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 03:57:27.584: [INFO] Profiles total count: 1
+2026-10-22 03:57:27.585: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T03:44:03.671Z
+2026-10-22 03:57:27.585: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 03:57:27.585: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T03:44:03.671Z
+2026-10-22 03:57:27.585: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 03:57:27.585: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 03:57:27.585: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 03:57:27.585: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 03:58:14.844: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:16:05.251: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:16:05.251: [INFO] Profiles total count: 1
+2026-10-22 04:16:05.252: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T03:57:49.561Z
+2026-10-22 04:16:05.252: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:16:05.252: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T03:57:49.561Z
+2026-10-22 04:16:05.252: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 04:16:05.252: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 04:16:05.252: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 04:16:05.252: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:16:47.899: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:18:03.755: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:18:03.755: [INFO] Profiles total count: 1
+2026-10-22 04:18:03.755: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:16:25.082Z
+2026-10-22 04:18:03.755: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:18:03.755: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:16:25.082Z
+2026-10-22 04:18:03.755: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 04:18:03.755: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 04:18:03.755: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 04:18:03.755: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:18:15.679: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:23:10.718: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:23:10.718: [INFO] Profiles total count: 1
+2026-10-22 04:23:10.718: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:18:04.088Z
+2026-10-22 04:23:10.718: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:23:10.718: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:18:04.088Z
+2026-10-22 04:23:10.718: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 04:23:10.718: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 04:23:10.718: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 04:23:10.718: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:24:57.717: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:27:11.786: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:27:11.786: [INFO] Profiles total count: 1
+2026-10-22 04:27:11.786: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:24:56.825Z
+2026-10-22 04:27:11.786: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:27:11.786: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:24:56.825Z
+2026-10-22 04:27:11.786: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 04:27:11.786: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 04:27:11.786: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 04:27:11.786: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:28:40.493: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:28:59.623: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:28:59.623: [INFO] Profiles total count: 1
+2026-10-22 04:28:59.623: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:27:43.033Z
+2026-10-22 04:28:59.623: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:28:59.623: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:27:43.033Z
+2026-10-22 04:28:59.623: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 04:28:59.623: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 04:28:59.623: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 04:28:59.623: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:29:09.598: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:52:29.730: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:52:29.730: [INFO] Profiles total count: 1
+2026-10-22 04:52:29.730: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:28:59.948Z
+2026-10-22 04:52:29.730: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 04:52:29.730: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:28:59.948Z
+2026-10-22 04:52:29.730: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 04:52:29.730: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 04:52:29.730: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 04:52:29.730: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 04:53:23.717: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 05:11:50.177: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 05:11:50.177: [INFO] Profiles total count: 1
+2026-10-22 05:11:50.177: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:52:29.892Z
+2026-10-22 05:11:50.177: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 05:11:50.177: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T04:52:29.892Z
+2026-10-22 05:11:50.177: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 05:11:50.177: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 05:11:50.177: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 05:11:50.177: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 05:12:54.436: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 05:14:53.249: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 05:14:53.249: [INFO] Profiles total count: 1
+2026-10-22 05:14:53.249: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T05:11:56.460Z
+2026-10-22 05:14:53.249: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 05:14:53.249: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T05:11:56.460Z
+2026-10-22 05:14:53.249: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 05:14:53.249: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 05:14:53.249: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 05:14:53.249: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 05:15:22.918: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 08:54:11.072: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 08:54:11.072: [INFO] Profiles total count: 1
+2026-10-22 08:54:11.073: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T05:14:58.662Z
+2026-10-22 08:54:11.073: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 08:54:11.073: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T05:14:58.662Z
+2026-10-22 08:54:11.073: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 08:54:11.073: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 08:54:11.073: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 08:54:11.073: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 08:55:51.657: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 10:20:33.507: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 10:20:33.507: [INFO] Profiles total count: 1
+2026-10-22 10:20:33.507: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T08:55:23.287Z
+2026-10-22 10:20:33.507: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 10:20:33.507: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T08:55:23.287Z
+2026-10-22 10:20:33.507: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 10:20:33.507: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 10:20:33.507: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 10:20:33.507: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 10:21:53.263: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 10:26:47.469: [INFO] CurrentProfilePath: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 10:26:47.469: [INFO] Profiles total count: 1
+2026-10-22 10:26:47.469: [INFO] Profile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T10:20:38.228Z
+2026-10-22 10:26:47.469: [INFO] LastUsedProfileDir: C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default
+2026-10-22 10:26:47.469: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\jimmy\source\repos\WaliSync\WaliSync\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WaliSync.exe.WebView2\EBWebView\Default lastActive=2026-10-22T10:20:38.228Z
+2026-10-22 10:26:47.469: [INFO] OnDoneLoading sync enabled: 0
+2026-10-22 10:26:47.469: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-22 10:26:47.469: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-22 10:26:47.469: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-22 10:28:28.898: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1

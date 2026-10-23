@@ -1,0 +1,184 @@
+@page "/mahasiswa"
+@inject IMahasiswaService MahasiswaService
+@inject NavigationManager NavigationManager
+@inject ToastService ToastService
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h2 class="fw-bold mb-1 text-primary-ink">Data Mahasiswa</h2>
+        <p class="text-muted-custom small mb-0">Kelola master data mahasiswa dan plotting dosen wali aktif.</p>
+    </div>
+    <button class="btn btn-sidebar-dark d-flex align-items-center gap-2 align-self-start align-self-md-auto"
+            @onclick="NavigateToCreate">
+        <i class="fa-solid fa-plus text-accent"></i>
+        <span>Tambah Mahasiswa</span>
+    </button>
+</div>
+
+<!-- Search Bar -->
+<div class="mb-4">
+    <div class="position-relative">
+        <i class="fa-solid fa-magnifying-glass position-absolute text-muted-custom"
+           style="left: 16px; top: 50%; transform: translateY(-50%); font-size: 0.95rem;"></i>
+        <input type="text"
+               class="form-control-custom w-100 ps-5"
+               placeholder="Cari NIM, Nama Mahasiswa, atau Angkatan..."
+               value="@_searchQuery"
+               @oninput="HandleSearchInput" />
+    </div>
+</div>
+
+@if (_isLoading)
+{
+    <LoadingSpinner Message="Memuat data mahasiswa..." />
+}
+else if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="row-card text-center py-4">
+        <i class="fa-solid fa-triangle-exclamation text-danger-custom fs-2 mb-2"></i>
+        <h6 class="fw-bold text-primary-ink mb-1">Gagal Memuat Data</h6>
+        <p class="text-muted-custom small mb-3">@_errorMessage</p>
+        <button class="btn btn-accent px-4 py-2" @onclick="LoadDataAsync">Coba Lagi</button>
+    </div>
+}
+else if (_pagedResult == null || !_pagedResult.Items.Any())
+{
+    <EmptyState Title="Tidak Ada Data Mahasiswa"
+                Message="@(string.IsNullOrWhiteSpace(_searchQuery) ? "Belum ada data mahasiswa tersimpan. Klik 'Tambah Mahasiswa' untuk menambahkan." : "Tidak ditemukan data mahasiswa yang cocok dengan pencarian.")"
+                IconClass="fa-solid fa-user-graduate" />
+}
+else
+{
+    <!-- Floating White Row-Cards with Accent Border -->
+    <div class="d-flex flex-column gap-3">
+        @foreach (var mhs in _pagedResult.Items)
+        {
+            <div class="row-card row-card-accent-border d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3" key="@mhs.MahasiswaId">
+                <!-- Identity -->
+                <div class="d-flex flex-column" style="min-width: 250px;">
+                    <h6 class="fw-bold mb-0 text-primary-ink">@mhs.NamaMahasiswa</h6>
+                    <div class="d-flex align-items-center gap-2 mt-1">
+                        <span class="text-muted-custom small">NIM: @mhs.Nim</span>
+                        <span class="text-muted-custom small">•</span>
+                        <span class="badge rounded-pill bg-canvas text-primary-ink small fw-semibold">
+                            Angkatan @mhs.Angkatan
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Dosen Wali Plotting -->
+                <div class="d-flex flex-column" style="min-width: 220px;">
+                    <span class="text-muted-custom small" style="font-size: 0.75rem;">Dosen Wali</span>
+                    <div class="d-flex align-items-center gap-2 mt-0.5">
+                        <i class="fa-solid fa-user-tie text-accent fs-6"></i>
+                        <span class="fw-semibold small text-primary-ink">@mhs.NamaDosenWali</span>
+                    </div>
+                </div>
+
+                <!-- Email & Actions -->
+                <div class="d-flex align-items-center justify-content-between justify-content-md-end gap-3 flex-grow-1">
+                    <span class="text-muted-custom small d-none d-lg-inline">@mhs.Email</span>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="btn-circle-action" title="Edit Mahasiswa" @onclick="() => NavigateToEdit(mhs.MahasiswaId)">
+                            <i class="fa-solid fa-pen text-xs"></i>
+                        </button>
+                        <button class="btn-circle-action action-delete" title="Hapus Mahasiswa" @onclick="() => PromptDelete(mhs)">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- Delete Confirmation Modal -->
+<ConfirmModal IsOpen="_isModalOpen"
+              Title="Konfirmasi Hapus Mahasiswa"
+              Message="@($"Apakah Anda yakin ingin menghapus mahasiswa '{_selectedMahasiswa?.NamaMahasiswa}' ({_selectedMahasiswa?.Nim})? Tindakan ini tidak dapat dibatalkan.")"
+              ConfirmText="Ya, Hapus"
+              OnConfirm="ExecuteDeleteAsync"
+              OnCancel="CloseModal" />
+
+@code {
+    private bool _isLoading = true;
+    private string? _errorMessage;
+    private string _searchQuery = string.Empty;
+    private PagedResultDto<MahasiswaResponseDto>? _pagedResult;
+
+    private bool _isModalOpen;
+    private MahasiswaResponseDto? _selectedMahasiswa;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDataAsync();
+    }
+
+    private async Task LoadDataAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _errorMessage = null;
+            _pagedResult = await MahasiswaService.GetMahasiswasAsync(_searchQuery);
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task HandleSearchInput(ChangeEventArgs e)
+    {
+        _searchQuery = e.Value?.ToString() ?? string.Empty;
+        await LoadDataAsync();
+    }
+
+    private void NavigateToCreate()
+    {
+        NavigationManager.NavigateTo("mahasiswa/tambah");
+    }
+
+    private void NavigateToEdit(int id)
+    {
+        NavigationManager.NavigateTo($"mahasiswa/edit/{id}");
+    }
+
+    private void PromptDelete(MahasiswaResponseDto mhs)
+    {
+        _selectedMahasiswa = mhs;
+        _isModalOpen = true;
+    }
+
+    private void CloseModal()
+    {
+        _isModalOpen = false;
+        _selectedMahasiswa = null;
+    }
+
+    private async Task ExecuteDeleteAsync()
+    {
+        if (_selectedMahasiswa == null) return;
+
+        var targetId = _selectedMahasiswa.MahasiswaId;
+        var targetName = _selectedMahasiswa.NamaMahasiswa;
+        CloseModal();
+
+        try
+        {
+            await MahasiswaService.DeleteMahasiswaAsync(targetId);
+            ToastService.ShowSuccess($"Data Mahasiswa '{targetName}' berhasil dihapus.");
+            await LoadDataAsync();
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Gagal menghapus mahasiswa: {ex.Message}");
+        }
+    }
+}
+

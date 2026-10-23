@@ -1,0 +1,38 @@
+@if (IsOpen)
+{
+    <div class="modal-backdrop-blur" @onclick="HandleBackdropClick">
+        <div class="modal-dialog-custom text-center" @onclick:stopPropagation="true">
+            <div class="mx-auto mb-3 d-flex align-items-center justify-content-center"
+                 style="width: 56px; height: 56px; border-radius: 50%; background-color: var(--badge-danger-bg); color: var(--badge-danger-text); font-size: 1.5rem;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            
+            <h5 class="fw-bold mb-2 text-primary-ink">@Title</h5>
+            <p class="text-muted-custom mb-4 small">@Message</p>
+
+            <div class="d-flex gap-2 justify-content-center">
+                <button type="button" class="btn btn-light rounded-pill px-4 flex-fill fw-semibold" @onclick="OnCancel">
+                    Batal
+                </button>
+                <button type="button" class="btn btn-danger rounded-pill px-4 flex-fill fw-semibold" style="background-color: var(--badge-danger-text); border: none;" @onclick="OnConfirm">
+                    @ConfirmText
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public string Title { get; set; } = "Konfirmasi Hapus";
+    [Parameter] public string Message { get; set; } = "Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.";
+    [Parameter] public string ConfirmText { get; set; } = "Ya, Hapus";
+    [Parameter] public EventCallback OnConfirm { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private async Task HandleBackdropClick()
+    {
+        await OnCancel.InvokeAsync();
+    }
+}
+

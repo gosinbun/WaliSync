@@ -1,0 +1,208 @@
+@page "/dosen"
+@inject IDosenService DosenService
+@inject NavigationManager NavigationManager
+@inject ToastService ToastService
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h2 class="fw-bold mb-1 text-primary-ink">Data Dosen</h2>
+        <p class="text-muted-custom small mb-0">Kelola master data dosen dan status beban perwalian.</p>
+    </div>
+    <button class="btn btn-sidebar-dark d-flex align-items-center gap-2 align-self-start align-self-md-auto"
+            @onclick="NavigateToCreate">
+        <i class="fa-solid fa-plus text-accent"></i>
+        <span>Tambah Dosen</span>
+    </button>
+</div>
+
+<!-- Search Bar -->
+<div class="mb-4">
+    <div class="position-relative">
+        <i class="fa-solid fa-magnifying-glass position-absolute text-muted-custom"
+           style="left: 16px; top: 50%; transform: translateY(-50%); font-size: 0.95rem;"></i>
+        <input type="text"
+               class="form-control-custom w-100 ps-5"
+               placeholder="Cari NIDN, Nama Dosen, atau Program Studi..."
+               value="@_searchQuery"
+               @oninput="HandleSearchInput" />
+    </div>
+</div>
+
+@if (_isLoading)
+{
+    <LoadingSpinner Message="Memuat data dosen..." />
+}
+else if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="row-card text-center py-4">
+        <i class="fa-solid fa-triangle-exclamation text-danger-custom fs-2 mb-2"></i>
+        <h6 class="fw-bold text-primary-ink mb-1">Gagal Memuat Data</h6>
+        <p class="text-muted-custom small mb-3">@_errorMessage</p>
+        <button class="btn btn-accent px-4 py-2" @onclick="LoadDataAsync">Coba Lagi</button>
+    </div>
+}
+else if (_pagedResult == null || !_pagedResult.Items.Any())
+{
+    <EmptyState Title="Tidak Ada Data Dosen"
+                Message="@(string.IsNullOrWhiteSpace(_searchQuery) ? "Belum ada data dosen tersimpan. Klik 'Tambah Dosen' untuk menambahkan." : "Tidak ditemukan data dosen yang cocok dengan pencarian.")"
+                IconClass="fa-solid fa-chalkboard-user" />
+}
+else
+{
+    <!-- Floating White Row-Cards -->
+    <div class="d-flex flex-column gap-3">
+        @foreach (var dosen in _pagedResult.Items)
+        {
+            <div class="row-card d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3" key="@dosen.DosenId">
+                <!-- Avatar & Identity -->
+                <div class="d-flex align-items-center gap-3" style="min-width: 240px;">
+                    <div class="avatar-circle badge-info-custom">
+                        @GetInitials(dosen.NamaDosen)
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-0 text-primary-ink">@dosen.NamaDosen</h6>
+                        <span class="text-muted-custom small">NIDN: @dosen.Nidn</span>
+                    </div>
+                </div>
+
+                <!-- Academic Info -->
+                <div class="d-flex flex-column" style="min-width: 180px;">
+                    <span class="fw-semibold small text-primary-ink">@dosen.Prodi</span>
+                    <span class="text-muted-custom small">@dosen.Email</span>
+                </div>
+
+                <!-- Metrics & Actions -->
+                <div class="d-flex align-items-center justify-content-between justify-content-md-end gap-3 flex-grow-1">
+                    <div>
+                        @if (dosen.JumlahMahasiswaBimbingan > 0)
+                        {
+                            <span class="badge rounded-pill badge-success-custom px-3 py-2 fw-semibold" style="font-size: 0.78rem;">
+                                @dosen.JumlahMahasiswaBimbingan Bimbingan
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill bg-canvas text-muted-custom px-3 py-2 fw-semibold" style="font-size: 0.78rem;">
+                                0 Bimbingan
+                            </span>
+                        }
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="btn-circle-action" title="Edit Dosen" @onclick="() => NavigateToEdit(dosen.DosenId)">
+                            <i class="fa-solid fa-pen text-xs"></i>
+                        </button>
+                        <button class="btn-circle-action action-delete" title="Hapus Dosen" @onclick="() => PromptDelete(dosen)">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- Delete Confirmation Modal -->
+<ConfirmModal IsOpen="_isModalOpen"
+              Title="Konfirmasi Hapus Dosen"
+              Message="@($"Apakah Anda yakin ingin menghapus data dosen '{_selectedDosen?.NamaDosen}'? Tindakan ini tidak dapat dibatalkan.")"
+              ConfirmText="Ya, Hapus"
+              OnConfirm="ExecuteDeleteAsync"
+              OnCancel="CloseModal" />
+
+@code {
+    private bool _isLoading = true;
+    private string? _errorMessage;
+    private string _searchQuery = string.Empty;
+    private PagedResultDto<DosenResponseDto>? _pagedResult;
+
+    private bool _isModalOpen;
+    private DosenResponseDto? _selectedDosen;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDataAsync();
+    }
+
+    private async Task LoadDataAsync()
+    {
+        try
+        {
+            _isLoading = true;
+            _errorMessage = null;
+            _pagedResult = await DosenService.GetDosensAsync(_searchQuery);
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task HandleSearchInput(ChangeEventArgs e)
+    {
+        _searchQuery = e.Value?.ToString() ?? string.Empty;
+        await LoadDataAsync();
+    }
+
+    private void NavigateToCreate()
+    {
+        NavigationManager.NavigateTo("dosen/tambah");
+    }
+
+    private void NavigateToEdit(int id)
+    {
+        NavigationManager.NavigateTo($"dosen/edit/{id}");
+    }
+
+    private void PromptDelete(DosenResponseDto dosen)
+    {
+        _selectedDosen = dosen;
+        _isModalOpen = true;
+    }
+
+    private void CloseModal()
+    {
+        _isModalOpen = false;
+        _selectedDosen = null;
+    }
+
+    private async Task ExecuteDeleteAsync()
+    {
+        if (_selectedDosen == null) return;
+
+        var targetId = _selectedDosen.DosenId;
+        var targetName = _selectedDosen.NamaDosen;
+        CloseModal();
+
+        try
+        {
+            await DosenService.DeleteDosenAsync(targetId);
+            ToastService.ShowSuccess($"Data Dosen '{targetName}' berhasil dihapus dari sistem.");
+            await LoadDataAsync();
+        }
+        catch (ApiException ex)
+        {
+            // Catches 409 Conflict if Dosen is active supervisor
+            ToastService.ShowError(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError($"Gagal menghapus dosen: {ex.Message}");
+        }
+    }
+
+    private static string GetInitials(string fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName)) return "DS";
+        var cleaned = fullName.Replace("Dr.", "").Replace("Prof.", "").Replace("M.Kom", "").Replace("S.T.", "").Replace("M.T.", "").Replace("M.Ars", "").Replace("S.E.", "").Replace("M.M.", "").Replace(",", "");
+        var parts = cleaned.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length >= 2) return $"{char.ToUpper(parts[0][0])}{char.ToUpper(parts[1][0])}";
+        if (parts.Length == 1 && parts[0].Length >= 2) return parts[0].Substring(0, 2).ToUpper();
+        return "DS";
+    }
+}
+

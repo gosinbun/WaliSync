@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="WaliSync/WaliSync.csproj" />
+  <Project Path="WaliSync.Api/WaliSync.Api.csproj" />
+  <Project Path="WaliSync.Api.Tests/WaliSync.Api.Tests.csproj" />
+</Solution>
